@@ -9,8 +9,12 @@ require_once APP_ROOT . "/vendor/autoload.php";
 
 use \Dropbox as dbx;
 
-
-
+ActiveRecord\Config::initialize(function($cfg){
+	$cfg->set_model_directory(APP_ROOT . '/app/models');
+	$cfg->set_connections([
+		'development' => 'mysql://root@localhost/droptobox'
+	]);
+});
 
 define('CLIENT_IDENTIFIER', 'TNWDropboxUploader/1.0');
 
