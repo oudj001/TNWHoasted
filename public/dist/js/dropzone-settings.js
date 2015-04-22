@@ -15,7 +15,7 @@ Dropzone.options.myDropzone = {
     },
 //    previewTemplate: document.querySelector('#preview-template').innerHTML,
     paramName: "file", // The name that will be used to transfer the file
-    dictDefaultMessage: 'Drop your files to upload to ...',
+    dictDefaultMessage: '<div class="uploadbutton"><span class="glyphicon glyphicon-plus-sign"></span><p id="instructions">Drop your files to upload to ...</p></div>',
     dictRemoveFile: 'Remove the file',
     autoProcessQueue: false,
     addRemoveLinks: true,
