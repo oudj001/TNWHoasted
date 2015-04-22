@@ -1,0 +1,13 @@
+{
+    "name": "Justinoud/hackbattle",
+    "description": "DropToBox",
+    "authors": [
+        {
+            "name": "Justin Oud",
+            "email": "justin@vouchercompany.nl"
+        }
+    ],
+    "require": {
+        "dropbox/dropbox-sdk": "~1.1"
+    }
+}
