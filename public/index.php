@@ -33,19 +33,52 @@ function getWebAuth(){
 	return new dbx\WebAuth($appInfo, CLIENT_IDENTIFIER, $redirectUrl, $csrfTokenStore);
 }
 
+function redirect($location){
+	header("Location: {$location}");
+	exit;
+}
+
 $router->map('GET', '/connect', function(){
 
 	$authorizeUrl = getWebAuth()->start();
 
-	header("Location: {$authorizeUrl}");
+	redirect($authorizeUrl);
 	
+});
+
+$router->map('GET', '/account', function(){
+	if(!isset($_SESSION['account_id'])){
+		redirect('/?error=not-authorized');
+	}
+	$account = Account::find((int)$_SESSION['account_id']);
+	var_dump($account);
 });
 
 $router->map('GET', '/auth-finish', function(){
 
 	try {
 		list($accessToken, $userId, $urlState) = getWebAuth()->finish($_GET);
-		var_dump($urlState === null);  // Since we didn't pass anything in start()
+
+		$client = new dbx\Client($accessToken, CLIENT_IDENTIFIER);
+		$accountInfo = $client->getAccountInfo();
+
+		$account = Account::find('first', ['dropbox_uid' => $userId]);
+
+		if(!$account){
+			$account = new Account([
+				'dropbox_uid' => $userId,
+			]);
+		}
+		$account->set_attributes([
+			'name' => $accountInfo['display_name'],
+			'email' => $accountInfo['email'],
+			'access_token' => $accessToken
+		]);
+
+		$account->save();
+
+		$_SESSION['account_id'] = $account->id;
+		redirect('/account');
 	}
 	catch (dbx\WebAuthException_BadRequest $ex) {
 		error_log("/dropbox-auth-finish: bad request: " . $ex->getMessage());
@@ -53,7 +86,7 @@ $router->map('GET', '/auth-finish', function(){
 	}
 	catch (dbx\WebAuthException_BadState $ex) {
 		// Auth session expired.  Restart the auth process.
-		var_dump($ex);
+		var_dump($ex->getMessage());
 		// header('Location: /connect');
 	}
 	catch (dbx\WebAuthException_Csrf $ex) {
@@ -69,16 +102,6 @@ $router->map('GET', '/auth-finish', function(){
 	catch (dbx\Exception $ex) {
 		error_log("/dropbox-auth-finish: error communicating with Dropbox API: " . $ex->getMessage());
 	}
-
-	// We can now use $accessToken to make API requests.
-	$client = new dbx\Client($accessToken, CLIENT_IDENTIFIER);
-	var_dump($client);
-
-});
-
-$router->map('GET', '/test', function(){
-	$client = new dbx\Client("3xqpArsI4wAAAAAAAAAOb6GlYnIxos0cQWRFw6m6TV4qzjPJlsT2HruCLOo0X4sn", CLIENT_IDENTIFIER);
-	var_dump($client);
 });
 
 $match = $router->match();
