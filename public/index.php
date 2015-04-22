@@ -8,12 +8,16 @@ define('APP_ROOT', realpath(__DIR__ . '/..'));
 require_once APP_ROOT . "/vendor/autoload.php";
 
 use \Dropbox as dbx;
+use Symfony\Component\Yaml\Yaml;
 
 ActiveRecord\Config::initialize(function($cfg){
 	$cfg->set_model_directory(APP_ROOT . '/app/models');
-	$cfg->set_connections([
-		'development' => 'mysql://root@localhost/droptobox'
-	]);
+	$connections = Yaml::parse(file_get_contents(APP_ROOT . '/db/config.yml'));
+	if($database_url = getenv('DATABASE_URL')){
+		$connections['production'] = $database_url;
+	}
+	$cfg->set_connections($connections);
+	$cfg->set_default_connection(getenv('APPLICATION_ENV') ?: 'development');
 });
 
 define('CLIENT_IDENTIFIER', 'TNWDropboxUploader/1.0');

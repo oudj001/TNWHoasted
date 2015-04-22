@@ -10,8 +10,15 @@
     "require": {
         "dropbox/dropbox-sdk": "~1.1",
         "altorouter/altorouter": "~1.1",
-        "php-activerecord/php-activerecord": "1.1-dev-dev",
+        "php-activerecord/php-activerecord": "dev-fetch-cms",
         "koenpunt/php-inflector": "~1.0",
-        "mandrill/mandrill": "~1.0"
-    }
+        "mandrill/mandrill": "~1.0",
+        "symfony/yaml": "~2.6"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/fetch/php-activerecord"
+        }
+    ]
 }
