@@ -18,12 +18,6 @@ ActiveRecord\Config::initialize(function($cfg){
 
 define('CLIENT_IDENTIFIER', 'TNWDropboxUploader/1.0');
 
-$router = new AltoRouter();
-
-$router->map('GET', '/', function(){
-	echo '<a href="/connect">Connect</a>';
-});
-
 function getWebAuth(){
 
 	$appInfo = dbx\AppInfo::loadFromJsonFile(APP_ROOT . "/app-info.json");
@@ -37,6 +31,89 @@ function redirect($location){
 	header("Location: {$location}");
 	exit;
 }
+
+
+$router = new AltoRouter();
+
+$router->map('GET', '/', function(){
+	echo '<a href="/connect">Connect</a>';
+});
+
+# User upload form
+$router->map('GET', '/u/[i:dropbox_uid]/[:urlname]', function($params){
+
+	$folder = Folder::find('first', [
+		'conditions' => [
+			'urlname = ? AND dropbox_uid = ?',
+			$params['urlname'], $params['dropbox_uid']
+		],
+		'joins' => 'JOIN accounts ON folders.account_id = accounts.id'
+	]);
+
+	$authorized_folders = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
+
+	if($folder->password && !in_array($folder->id, $authorized_folders)){
+		echo <<<HTML
+<form action="/u/{$params['dropbox_uid']}/{$params['urlname']}/login" method="POST">
+	<label>
+		Password<br>
+		<input type="password" name="password">
+	</label>
+	<input type="submit" value="Login">
+</form>
+HTML;
+	}else{
+		echo <<<HTML
+<form action="/u/{$params['dropbox_uid']}/{$params['urlname']}" method="POST" enctype="multipart/form-data">
+	<label>
+		<input type="file" name="file" value="">
+	</label>
+	<input type="submit" value="Upload file">
+</form>
+HTML;
+
+	}
+
+});
+
+# User upload
+$router->map('POST', '/u/[i:dropbox_uid]/[:urlname]', function($params){
+
+	$folder = Folder::find('first', [
+		'conditions' => [
+			'urlname = ? AND dropbox_uid = ?',
+			$params['urlname'], $params['dropbox_uid']
+		],
+		'joins' => 'JOIN accounts ON folders.account_id = accounts.id'
+	]);
+
+	$authorized_folders = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
+
+	if(!$folder->password || in_array($folder->id, $authorized_folders)){
+		$file = $folder->uploadFile($_FILES['file']['tmp_name'], $_FILES['file']['name']);
+		var_dump($file);
+	}else{
+		echo 'NOT AUTHENTICATED';
+	}
+});
+
+# User login
+$router->map('POST', '/u/[i:dropbox_uid]/[:urlname]/login', function($params){
+
+	$folder = Folder::find('first', [
+		'conditions' => [
+			'urlname = ? AND dropbox_uid = ?',
+			$params['urlname'], $params['dropbox_uid']
+		],
+		'joins' => 'JOIN accounts ON folders.account_id = accounts.id'
+	]);
+
+	if(password_verify($_POST['password'], $folder->password)){
+		$_SESSION['authorized_folders'] = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
+		$_SESSION['authorized_folders'][] = $folder->id;
+	}
+	redirect("/u/{$params['dropbox_uid']}/{$params['urlname']}");
+});
 
 $router->map('GET', '/connect', function(){
 
@@ -91,26 +168,26 @@ $router->map('GET', '/account/folders/[:urlname]', function($params){
 	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
 
 	echo <<<HTML
-<form action="/account/folders/{$params['urlname']}" method="POST" enctype="multipart/form-data">
+<form action="/account/folders/{$params['urlname']}/password" method="POST">
 	<label>
-		<input type="file" name="file" value="">
+		Only enter password if you want to change it<br>
+		<input type="password" name="password">
 	</label>
-	<input type="submit" value="Upload file">
+	<input type="submit" value="Set password">
 </form>
 HTML;
 
 });
 
-$router->map('POST', '/account/folders/[:urlname]', function($params){
+$router->map('POST', '/account/folders/[:urlname]/password', function($params){
 	if(!isset($_SESSION['account_id'])){
 		redirect('/?error=not-authorized');
 	}
 	$account = Account::find((int)$_SESSION['account_id']);
 	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
 
-	$file = $folder->uploadFile($_FILES['file']['tmp_name'], $_FILES['file']['name']);
-
-	var_dump($file);
+	$folder->update_attribute('password', password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 10]));
+	redirect("/account/folders/{$folder->urlname}");
 });
 
 $router->map('GET', '/auth-finish', function(){
