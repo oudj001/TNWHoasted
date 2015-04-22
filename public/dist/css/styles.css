@@ -1,0 +1,86 @@
+*{
+	font-family: 'Open Sans', sans-serif;
+}
+
+.login{
+	position: relative;
+	background:url("../img/background.jpg"); 
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 100%;
+	z-index: 0;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	padding:8em 0 8em;
+	text-align: center;
+	font-weight:300;
+}
+
+.logo{
+	margin:0 auto;
+}
+
+.loginbox{
+	background-color:rgba(255,255,255,0.6);
+	padding:2em ;
+}
+
+/* Header */
+.wrappert {
+	padding-top: 90px;
+}
+#logo {
+	padding: 20px 0;
+}
+a.publiclink {
+	margin: 20px 0;
+	height: 45px;
+	padding: 13px 20px;
+	display: inline-block;
+	background: rgb(21, 125, 184);
+	color: white;
+	font-weight: bold;
+}
+a.publiclink:hover {
+	text-decoration: none;
+	background: rgba(21, 125, 184, 0.8);
+}
+/* Center */
+.upload {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 250px;
+  height: 250px;
+  text-align: center;
+  padding: 60px 20px;
+  border: 2px dashed rgb(140, 140, 140);
+  color: rgb(140, 140, 140);
+  border-radius: 30px;
+}
+.upload .glyphicon-plus-sign {
+	font-size: 5em;
+}
+#instructions {
+	padding-top: 20px;
+}
+
+/* Footer */
+footer {
+	background: rgb(248, 248, 248);
+	position: fixed;
+	bottom: 0;
+	height: 50px;
+	width: 100%;
+	border-top: 1px solid #e7e7e7;
+}
+#footertxt {
+	padding: 15px 0;
+	text-align: center;
+	font-style: italic;
+}
