@@ -51,7 +51,66 @@ $router->map('GET', '/account', function(){
 		redirect('/?error=not-authorized');
 	}
 	$account = Account::find((int)$_SESSION['account_id']);
-	var_dump($account);
+
+	if(!!$account->folders){
+		echo '<h3>Folders</h3>';
+		echo '<ul>';
+		foreach($account->folders as $_folder){
+			echo '<li><a href="/account/folders/' . $_folder->urlname . '">' . $_folder->name . '</a></li>';
+		}
+		echo '</ul>';
+	}
+	
+	echo <<<HTML
+<form action="/account/folders" method="POST">
+	<label>
+		<input type="text" name="name" value="" placeholder="Folder name">
+	</label>
+	<input type="submit" value="Create folder">
+</form>
+HTML;
+
+});
+
+$router->map('POST', '/account/folders', function(){
+	if(!isset($_SESSION['account_id'])){
+		redirect('/?error=not-authorized');
+	}
+	$account = Account::find((int)$_SESSION['account_id']);
+	
+	$account->create_folders(['name' => $_POST['name']]);
+
+	redirect('/account');
+});
+
+$router->map('GET', '/account/folders/[:urlname]', function($params){
+	if(!isset($_SESSION['account_id'])){
+		redirect('/?error=not-authorized');
+	}
+	$account = Account::find((int)$_SESSION['account_id']);
+	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
+
+	echo <<<HTML
+<form action="/account/folders/{$params['urlname']}" method="POST" enctype="multipart/form-data">
+	<label>
+		<input type="file" name="file" value="">
+	</label>
+	<input type="submit" value="Upload file">
+</form>
+HTML;
+
+});
+
+$router->map('POST', '/account/folders/[:urlname]', function($params){
+	if(!isset($_SESSION['account_id'])){
+		redirect('/?error=not-authorized');
+	}
+	$account = Account::find((int)$_SESSION['account_id']);
+	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
+
+	$file = $folder->uploadFile($_FILES['file']['tmp_name'], $_FILES['file']['name']);
+
+	var_dump($file);
 });
 
 $router->map('GET', '/auth-finish', function(){
@@ -106,5 +165,5 @@ $router->map('GET', '/auth-finish', function(){
 
 $match = $router->match();
 if($match){
-	call_user_func($match['target']);
+	call_user_func($match['target'], $match['params']);
 }
