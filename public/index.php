@@ -17,6 +17,9 @@ ActiveRecord\Config::initialize(function($cfg){
 });
 
 define('CLIENT_IDENTIFIER', 'TNWDropboxUploader/1.0');
+define('INVITE_ORIGINATOR', 'invite@' . $_SERVER['HTTP_HOST']);
+
+define('MANDRILL_API_KEY', getenv('MANDRILL_API_KEY') || '');
 
 function getWebAuth(){
 
@@ -64,6 +67,9 @@ $router->map('GET', '/u/[i:dropbox_uid]/[:urlname]', function($params){
 HTML;
 	}else{
 		echo <<<HTML
+			<p>
+				<a href="{$folder->getShareableLink()}">View folder contents</a>
+			</p>
 <form action="/u/{$params['dropbox_uid']}/{$params['urlname']}" method="POST" enctype="multipart/form-data">
 	<label>
 		<input type="file" name="file" value="">
@@ -175,8 +181,26 @@ $router->map('GET', '/account/folders/[:urlname]', function($params){
 	</label>
 	<input type="submit" value="Set password">
 </form>
+<form action="/account/folders/{$params['urlname']}/invite" method="POST">
+	<label>
+		Invite by email<br>
+		<input type="text" name="email">
+	</label>
+	<input type="submit" value="Send invite">
+</form>
 HTML;
 
+});
+
+$router->map('POST', '/account/folders/[:urlname]/invite', function($params){
+	if(!isset($_SESSION['account_id'])){
+		redirect('/?error=not-authorized');
+	}
+	$account = Account::find((int)$_SESSION['account_id']);
+	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
+
+	$folder->inviteByEmail($_POST['email']);
+	redirect("/account/folders/{$folder->urlname}");
 });
 
 $router->map('POST', '/account/folders/[:urlname]/password', function($params){

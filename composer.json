@@ -11,6 +11,7 @@
         "dropbox/dropbox-sdk": "~1.1",
         "altorouter/altorouter": "~1.1",
         "php-activerecord/php-activerecord": "1.1-dev-dev",
-        "koenpunt/php-inflector": "~1.0"
+        "koenpunt/php-inflector": "~1.0",
+        "mandrill/mandrill": "~1.0"
     }
 }
