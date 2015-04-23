@@ -7,6 +7,10 @@ session_start();
 define('APP_ROOT', realpath(__DIR__ . '/..'));
 require_once APP_ROOT . "/vendor/autoload.php";
 
+if(!getenv('APPLICATION_ENV') || getenv('APPLICATION_ENV') == 'development'){
+	Dotenv::load(APP_ROOT);
+}
+
 use \Dropbox as dbx;
 use Symfony\Component\Yaml\Yaml;
 
@@ -23,11 +27,13 @@ ActiveRecord\Config::initialize(function($cfg){
 define('CLIENT_IDENTIFIER', 'TNWDropboxUploader/1.0');
 define('INVITE_ORIGINATOR', 'invite@' . $_SERVER['HTTP_HOST']);
 
-define('MANDRILL_API_KEY', getenv('MANDRILL_API_KEY') || '');
+define('MANDRILL_API_KEY', getenv('MANDRILL_API_KEY'));
+define('DROPBOX_KEY', getenv('DROPBOX_KEY'));
+define('DROPBOX_SECRET', getenv('DROPBOX_SECRET'));
 
 function getWebAuth(){
 
-	$appInfo = dbx\AppInfo::loadFromJsonFile(APP_ROOT . "/app-info.json");
+	$appInfo = new dbx\AppInfo(DROPBOX_KEY, DROPBOX_SECRET);
 	$csrfTokenStore = new dbx\ArrayEntryStore($_SESSION, 'dropbox-auth-csrf-token');
 	$redirectUrl = 'https://' . $_SERVER['HTTP_HOST'] . '/auth-finish';
 

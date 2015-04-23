@@ -20,5 +20,8 @@
             "type": "vcs",
             "url": "https://github.com/fetch/php-activerecord"
         }
-    ]
+    ],
+    "require-dev": {
+        "vlucas/phpdotenv": "~1.1"
+    }
 }
