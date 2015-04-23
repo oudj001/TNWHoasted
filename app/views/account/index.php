@@ -4,7 +4,7 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/dist/css/styles.css">
+  <link rel="stylesheet" href="/public/dist/css/styles.css">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'> 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <body class="background">
@@ -12,7 +12,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="row">
-          <img id="logo" src="https://www.hoasted.com/blog/img/logo-hoasted-2015-159x45.png" class="pull-left">
+          <img id="logo" src="/public/dist/img/logo@2x.png" height="100" class="pull-left">
         </div>
       </div>
     </nav>
@@ -24,15 +24,17 @@
         <div class="row">
           <div class="col-lg-10 col-lg-offset-1 col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1 loginbox">
             <h2 class="heading">Create a new dropbox folder where people can drop there stuff</h2>
+            
             <?php if(!!$account->folders): ?>
             <div class="row">
-              <div class="col-lg-4 col-lg-offset-4">
+              <div class="col-lg-4 col-lg-offset-4 folders">
                 <h3>Folders</h3>
-                <ul>
                 <?php foreach($account->folders as $_folder): ?>
-                <li><a href="<?= router()->generate('folder', ['urlname' => $_folder->urlname]); ?>"><?=$_folder->name ?></a></li>
+                <div class="folder-app">
+                    <a href="<?= router()->generate('folder', ['urlname' => $_folder->urlname]); ?>"><img src="/public/dist/img/folder.png"><?=$_folder->name ?></a>
+                </div>
                 <?php endforeach ?>
-                </ul>
+                
               </div>
             </div>
             <?php endif ?>

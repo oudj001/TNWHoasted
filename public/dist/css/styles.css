@@ -209,4 +209,14 @@ footer {
 .btn-save-invite {background: rgb(21, 125, 184);
                   color: white;  
                   padding:8px 15px; font-size:20px; border:none; width:300px; margin-left:auto; margin-right:auto; display:block; margin-top:25px;}
+.folders ul li {
+    color:rgb(21, 125, 184);
+}
 
+.folder ul li a {
+    color:#000 !important;
+    text-decoration:none;
+}
+
+.folder-app img {margin-right:10px; cursor:pointer;}
+.folder-app a{text-decoration:none; color:#000; font-weight:400; font-size:16px;}
