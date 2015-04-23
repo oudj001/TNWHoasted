@@ -50,6 +50,11 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success btn-save-invite">Send the invitations!</button>
+                        
+                        <p>
+                          <h3>Or share the URL</h3>
+                          <input type="text" value="<?= $upload_url ?>" style="padding-right: 0;" readonly>
+                        </p>
 									</form>
                   
                 </div>

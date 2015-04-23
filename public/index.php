@@ -199,9 +199,15 @@ $router->map('GET', '/account/folders/[:urlname]', function($params){
   $account = account();
   $folder = $account->getFolder($params['urlname']);
 
+	if(!$folder){
+		redirect(router()->generate('account'), ['error' => 'not_found']);
+	}
+
 	$invite_url = router()->generate('invite', $params);
 	$password_url = router()->generate('password', $params);
 	$dropbox_url = router()->generate('account_dropbox_url', $params);
+
+  $upload_url = $folder->public_url;
 
 	include APP_ROOT . '/app/views/account/folder.php';
 
@@ -210,6 +216,10 @@ $router->map('GET', '/account/folders/[:urlname]', function($params){
 $router->map('GET', '/account/folders/[:urlname]/dropbox', function($params){
   $account = account();
   $folder = $account->getFolder($params['urlname']);
+
+	if(!$folder){
+		redirect(router()->generate('account'), ['error' => 'not_found']);
+	}
 
   redirect($folder->getShareableLink());
 

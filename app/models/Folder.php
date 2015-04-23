@@ -37,7 +37,7 @@ class Folder extends ActiveRecord\Model {
 	}
 
 	public function get_public_url(){
-		return 'https://' . $_SERVER['HTTP_HOST'] . "/u/{$this->account->dropbox_uid}/{$this->urlname}";
+		return BASE_URL . "/u/{$this->account->dropbox_uid}/{$this->urlname}";
 	}
 
 	public function uploadFile($filePath, $fileName = null){
