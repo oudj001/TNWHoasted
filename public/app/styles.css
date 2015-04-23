@@ -58,3 +58,7 @@ footer {
 	text-align: center;
 	font-style: italic;
 }
+
+.blur {
+    filter: blur(8);
+}

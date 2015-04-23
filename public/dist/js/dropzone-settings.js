@@ -10,6 +10,10 @@ Dropzone.options.myDropzone = {
     init: function() {
         myDropzone = this; // closure
         $('.upload-dropzone').click(function() {
+            $(".wrapper").addClass("blur");
+             $('div#pop-up').fadeIn();
+        });
+        $('.enter-email').click(function() {
             myDropzone.processQueue();
         });
     },

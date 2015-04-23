@@ -45,7 +45,6 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    padding:8em 0 8em;
     font-weight:300;
 }
 
@@ -81,7 +80,7 @@
 
 /* Header */
 .wrappert {
-    padding-top: 20px;
+    padding: 70px 0;
 }
 #logo {
     padding: 20px 0;
@@ -114,7 +113,6 @@ a#uploadbtn {
     padding: 60px 20px;
     color: rgb(140, 140, 140);
     border-radius: 30px;
-    margin-bottom:40px;
 }
 
 .uploadbutton{
@@ -169,8 +167,60 @@ footer {
 .upload-dropzone {background: rgb(21, 125, 184);
                   color: white;
                   padding:8px 15px; font-size:25px; border:none; display:block; width:150px; margin: 0 auto;}
-.upload-dropzone:hover {
+.upload-dropzone:hover, .enter-email:hover {
     text-decoration: none;
     background: rgba(21, 125, 184, 0.8);
 }
 .confirmation-box {display:none;}
+
+.wrapper {
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    overflow:hidden;
+    
+}
+.blur {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    pointer-events: none;
+}
+div#pop-up {
+    display: none;
+    position: absolute;
+    width: 250px;
+    margin-left:-125px;
+    height:200px;
+    margin-top:-100px;
+    padding: 10px;
+    background: #FFF;
+    color: #000000;
+    border: 1px solid #FFF;
+    -moz-box-shadow: 0 0 3px #8e8e8e;
+    -webkit-box-shadow: 0 0 3px #8e8e8e;
+    box-shadow: 0 0 3px #8e8e8e;
+    left:50%;
+    top:50%;
+    border-radius:5px;
+}
+
+div#pop-up h3 {
+    text-align:center;
+}
+
+div#pop-up input{
+    margin-top:25px;
+    border-radius:5px;
+    height:45px;
+
+}
+
+.enter-email {
+    background: rgb(21, 125, 184);
+    color: white;
+    padding:8px 10px; font-size:16px; border:none; display:block; width:100%; margin-top:23px;
+}
