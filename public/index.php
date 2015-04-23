@@ -8,15 +8,22 @@ define('APP_ROOT', realpath(__DIR__ . '/..'));
 require_once APP_ROOT . "/vendor/autoload.php";
 
 use \Dropbox as dbx;
+use Symfony\Component\Yaml\Yaml;
 
 ActiveRecord\Config::initialize(function($cfg){
 	$cfg->set_model_directory(APP_ROOT . '/app/models');
-	$cfg->set_connections([
-		'development' => 'mysql://root@localhost/droptobox'
-	]);
+	$connections = Yaml::parse(file_get_contents(APP_ROOT . '/db/config.yml'));
+	if($database_url = getenv('DATABASE_URL')){
+		$connections['production'] = $database_url;
+	}
+	$cfg->set_connections($connections);
+	$cfg->set_default_connection(getenv('APPLICATION_ENV') ?: 'development');
 });
 
 define('CLIENT_IDENTIFIER', 'TNWDropboxUploader/1.0');
+define('INVITE_ORIGINATOR', 'invite@' . $_SERVER['HTTP_HOST']);
+
+define('MANDRILL_API_KEY', getenv('MANDRILL_API_KEY') || '');
 
 function getWebAuth(){
 
@@ -64,6 +71,9 @@ $router->map('GET', '/u/[i:dropbox_uid]/[:urlname]', function($params){
 HTML;
 	}else{
 		echo <<<HTML
+			<p>
+				<a href="{$folder->getShareableLink()}">View folder contents</a>
+			</p>
 <form action="/u/{$params['dropbox_uid']}/{$params['urlname']}" method="POST" enctype="multipart/form-data">
 	<label>
 		<input type="file" name="file" value="">
@@ -175,8 +185,26 @@ $router->map('GET', '/account/folders/[:urlname]', function($params){
 	</label>
 	<input type="submit" value="Set password">
 </form>
+<form action="/account/folders/{$params['urlname']}/invite" method="POST">
+	<label>
+		Invite by email<br>
+		<input type="text" name="email">
+	</label>
+	<input type="submit" value="Send invite">
+</form>
 HTML;
 
+});
+
+$router->map('POST', '/account/folders/[:urlname]/invite', function($params){
+	if(!isset($_SESSION['account_id'])){
+		redirect('/?error=not-authorized');
+	}
+	$account = Account::find((int)$_SESSION['account_id']);
+	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
+
+	$folder->inviteByEmail($_POST['email']);
+	redirect("/account/folders/{$folder->urlname}");
 });
 
 $router->map('POST', '/account/folders/[:urlname]/password', function($params){

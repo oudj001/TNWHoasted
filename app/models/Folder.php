@@ -36,6 +36,10 @@ class Folder extends ActiveRecord\Model {
 		return $this->_createDbxFolder() !== null;
 	}
 
+	public function get_public_url(){
+		return 'https://' . $_SERVER['HTTP_HOST'] . "/u/{$this->account->dropbox_uid}/{$this->urlname}";
+	}
+
 	public function uploadFile($filePath, $fileName = null){
 		$this->_ensureDbxFolder();
 		$fileName = $fileName ?: basename($filePath);
@@ -47,6 +51,26 @@ class Folder extends ActiveRecord\Model {
 
 	public function getShareableLink(){
 		return $this->dbx_client->createShareableLink($this->dbx_folder_path);
+	}
+
+	public function inviteByEmail($to){
+		$mandrill = new Mandrill(MANDRILL_API_KEY);
+
+		$message = array(
+			'html' => sprintf('<p><a href="%s">Start uploading!</a></p>', $this->public_url),
+			'text' => $this->public_url,
+			'subject' => "You're invited for {$this->name}",
+			'from_email' => INVITE_ORIGINATOR,
+			'from_name' => 'DropToBox',
+			'to' => array(
+				array(
+					'email' => $to,
+					// 'name' => 'Recipient Name',
+					// 'type' => 'to'
+				)
+			)
+		);
+		return $mandrill->messages->send($message);
 	}
 
 }

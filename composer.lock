@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c4ad66beb7a7519555c99887488741e3",
+    "hash": "d0439b2332b44225c319802374472368",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -134,17 +134,60 @@
             "time": "2014-04-10 19:13:17"
         },
         {
-            "name": "php-activerecord/php-activerecord",
-            "version": "dev-1.1-dev",
+            "name": "mandrill/mandrill",
+            "version": "1.0.54",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jpfuentes2/php-activerecord.git",
-                "reference": "53754c569bdeee2b77ba9b9f0ea8882f911db84f"
+                "url": "https://bitbucket.org/mailchimp/mandrill-api-php.git",
+                "reference": "9f336b08ea148c80db3b694f3dc737cd4f414e19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jpfuentes2/php-activerecord/zipball/53754c569bdeee2b77ba9b9f0ea8882f911db84f",
-                "reference": "53754c569bdeee2b77ba9b9f0ea8882f911db84f",
+                "url": "https://bitbucket.org/mailchimp/mandrill-api-php/get/9f336b08ea148c80db3b694f3dc737cd4f414e19.zip",
+                "reference": "9f336b08ea148c80db3b694f3dc737cd4f414e19",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Mandrill": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Mandrill Devs",
+                    "email": "community@mandrill.com",
+                    "homepage": "http://mandrill.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "API client library for the Mandrill email as a service platform",
+            "homepage": "https://bitbucket.org/mailchimp/mandrill-api-php",
+            "keywords": [
+                "api",
+                "email"
+            ],
+            "time": "2014-10-16 21:08:20"
+        },
+        {
+            "name": "php-activerecord/php-activerecord",
+            "version": "dev-fetch-cms",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fetch/php-activerecord.git",
+                "reference": "9a19015c5ac5078549013d8a1feeb451f120ac33"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fetch/php-activerecord/zipball/9a19015c5ac5078549013d8a1feeb451f120ac33",
+                "reference": "9a19015c5ac5078549013d8a1feeb451f120ac33",
                 "shasum": ""
             },
             "require": {
@@ -161,7 +204,6 @@
                     "ActiveRecord.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -171,7 +213,60 @@
                 "activerecord",
                 "orm"
             ],
-            "time": "2015-02-16 15:47:28"
+            "support": {
+                "source": "https://github.com/fetch/php-activerecord/tree/fetch-cms"
+            },
+            "time": "2015-03-24 16:12:24"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v2.6.6",
+            "target-dir": "Symfony/Component/Yaml",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Yaml.git",
+                "reference": "174f009ed36379a801109955fc5a71a49fe62dd4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/174f009ed36379a801109955fc5a71a49fe62dd4",
+                "reference": "174f009ed36379a801109955fc5a71a49fe62dd4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Yaml\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "http://symfony.com",
+            "time": "2015-03-30 15:54:10"
         }
     ],
     "packages-dev": [],
