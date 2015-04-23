@@ -38,7 +38,10 @@
                             <form action="../app/upload.php" class="dropzone" id="myDropzone"></form>
                             <div class="confirmation-box">
                                 <h1 class="confirmation">Are you sure you selected every file?</h1>
-                                <div class="btn btn-success upload-dropzone">Upload</div>
+                                <div class="upload-box">
+                                <input class="form-control" name="name" type="text" placeholder="Optional: Add a name"/>
+                                <div class="btn btn-success upload-dropzone">Upload </div>
+                                </div>
                             </div>
 
                         </div>
@@ -55,13 +58,13 @@
             </div>
         </footer>
     </div>
-        <div id="pop-up">
+<!--        <div id="pop-up">
       <h3>Enter your name</h3>
       <form>
           <input class="form-control" name="name" type="text" placeholder="Your name"/>
       </form>
       <div class="btn btn-success enter-email">Ok!</div>
-    </div>
+    </div>-->
         <script src="./js/dropzone-settings.js"></script>
 
     </body>

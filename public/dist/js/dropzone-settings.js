@@ -10,10 +10,6 @@ Dropzone.options.myDropzone = {
     init: function() {
         myDropzone = this; // closure
         $('.upload-dropzone').click(function() {
-            $(".wrapper").addClass("blur");
-             $('div#pop-up').fadeIn();
-        });
-        $('.enter-email').click(function() {
             myDropzone.processQueue();
         });
     },
@@ -21,8 +17,8 @@ Dropzone.options.myDropzone = {
     paramName: "file", // The name that will be used to transfer the file
     dictDefaultMessage: '<div class="uploadbutton"><span class="glyphicon glyphicon-plus-sign"></span><p id="instructions">Drop your files to upload to ...</p></div>',
     dictRemoveFile: '<span class="glyphicon glyphicon-remove"></span>',
-    thumbnailWidth: 100,
-    thumbnailHeight: 100,
+    uploadMultiple: true,
+    parallelUploads: 100,
     autoProcessQueue: false,
     addRemoveLinks: true,
     accept: function(file, done) {
