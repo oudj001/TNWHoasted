@@ -88,6 +88,12 @@ a{
 .wrappert {
     padding: 70px 0;
 }
+
+.wrappert h1 {
+    text-align:center;
+    font-size:30px;
+    padding-top:20px;
+}
 #logo {
     padding: 20px 0;
 }
@@ -169,7 +175,7 @@ footer {
 .upload-dropzone {background: rgb(21, 125, 184);
                   color: white;  
                   padding:8px 15px; font-size:20px; border:none; display:inline-block;  width:150px; margin: 0 auto; margin-top:-4px;}
-.upload-dropzone:hover, .enter-email:hover {
+.upload-dropzone:hover, .enter-email:hover, .btn-save-invite{
     text-decoration: none;
     background: rgba(21, 125, 184, 0.8);
 }
@@ -189,6 +195,18 @@ footer {
     margin-right:auto;
     width:355px;
 }
-
-
+.email, .added-email {margin-top:5px;}
+.invite-fields input {width:300px;border:1px solid #CCC;  margin-left:auto; margin-right:auto; height:40px; padding:5px; padding-right:50px;}
+.form-horizontal {width:300px; margin-left:auto; margin-right:auto;}
+.plus-email {position:absolute; right:10px; top:10px; color: #FFF; font-size:20px;}
+.plus-holder, .min-holder {background:rgb(21, 125, 184); width:43px; height:40px; position:absolute; top:0px; right:0px; cursor:pointer;}
+.email, .added-email {position:relative;}
 .confirmation-box input {width:200px; margin-left:auto; margin-right:auto; display:inline-block; height:45px; margin-bottom:25px; margin-top:25px;}
+.password input {width:300px; margin-top:20px; border:1px solid #CCC; margin-left:auto; margin-right:auto; height:40px; padding:5px; padding-right:50px;}
+.password{width:300px; margin-left:auto; margin-right:auto;}
+.password span {text-align:center;display:block; font-style:italic;}
+
+.btn-save-invite {background: rgb(21, 125, 184);
+                  color: white;  
+                  padding:8px 15px; font-size:20px; border:none; width:300px; margin-left:auto; margin-right:auto; display:block; margin-top:25px;}
+
