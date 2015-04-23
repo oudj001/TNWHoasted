@@ -40,17 +40,23 @@ function getWebAuth(){
 	return new dbx\WebAuth($appInfo, CLIENT_IDENTIFIER, $redirectUrl, $csrfTokenStore);
 }
 
-function redirect($location){
+function redirect($location, $query = null){
+	if($query !== null){
+		$location .= '?' . http_build_query($query);
+	}
 	header("Location: {$location}");
 	exit;
 }
 
-
 $router = new AltoRouter();
+function router(){
+	global $router;
+	return $router;
+}
 
-$router->map('GET', '/', function(){
-	echo '<a href="/connect">Connect</a>';
-});
+$router->map('GET', '/', function($params){
+	include APP_ROOT . '/app/views/index.php';
+}, 'root');
 
 # User upload form
 $router->map('GET', '/u/[i:dropbox_uid]/[:urlname]', function($params){
@@ -63,34 +69,24 @@ $router->map('GET', '/u/[i:dropbox_uid]/[:urlname]', function($params){
 		'joins' => 'JOIN accounts ON folders.account_id = accounts.id'
 	]);
 
+	if(!$folder){
+		redirect(router()->generate('root'), ['error' => 'not_found']);
+	}
+
 	$authorized_folders = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
 
 	if($folder->password && (!isset($authorized_folders[$folder->id]) || $folder->password != $authorized_folders[$folder->id])){
-		echo <<<HTML
-<form action="/u/{$params['dropbox_uid']}/{$params['urlname']}/login" method="POST">
-	<label>
-		Password<br>
-		<input type="password" name="password">
-	</label>
-	<input type="submit" value="Login">
-</form>
-HTML;
+
+		$login_url = router()->generate('login', $params);
+		include APP_ROOT . '/app/views/user/login.php';
+
 	}else{
-		echo <<<HTML
-			<p>
-				<a href="{$folder->getShareableLink()}">View folder contents</a>
-			</p>
-<form action="/u/{$params['dropbox_uid']}/{$params['urlname']}" method="POST" enctype="multipart/form-data">
-	<label>
-		<input type="file" name="file" value="">
-	</label>
-	<input type="submit" value="Upload file">
-</form>
-HTML;
+		$upload_url = router()->generate('upload', $params);
+		include APP_ROOT . '/app/views/user/index.php';
 
 	}
 
-});
+}, 'user');
 
 # User upload
 $router->map('POST', '/u/[i:dropbox_uid]/[:urlname]', function($params){
@@ -107,11 +103,9 @@ $router->map('POST', '/u/[i:dropbox_uid]/[:urlname]', function($params){
 
 	if(!$folder->password || $folder->password == $authorized_folders[$folder->id]){
 		$file = $folder->uploadFile($_FILES['file']['tmp_name'], $_FILES['file']['name']);
-		var_dump($file);
-	}else{
-		echo 'NOT AUTHENTICATED';
+		redirect(router()->generate('user', $params), ['success' => 'true']);
 	}
-});
+}, 'upload');
 
 # User login
 $router->map('POST', '/u/[i:dropbox_uid]/[:urlname]/login', function($params){
@@ -128,8 +122,9 @@ $router->map('POST', '/u/[i:dropbox_uid]/[:urlname]/login', function($params){
 		$_SESSION['authorized_folders'] = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
 		$_SESSION['authorized_folders'][$folder->id] = $folder->password;
 	}
-	redirect("/u/{$params['dropbox_uid']}/{$params['urlname']}");
-});
+	redirect(router()->generate('user', $params));
+
+}, 'login');
 
 $router->map('GET', '/connect', function(){
 
@@ -141,88 +136,61 @@ $router->map('GET', '/connect', function(){
 
 $router->map('GET', '/account', function(){
 	if(!isset($_SESSION['account_id'])){
-		redirect('/?error=not-authorized');
+		redirect(router()->generate('root'), ['error' => 'not-authorized']);
 	}
 	$account = Account::find((int)$_SESSION['account_id']);
+	$folders_url = router()->generate('folders');
 
-	if(!!$account->folders){
-		echo '<h3>Folders</h3>';
-		echo '<ul>';
-		foreach($account->folders as $_folder){
-			echo '<li><a href="/account/folders/' . $_folder->urlname . '">' . $_folder->name . '</a></li>';
-		}
-		echo '</ul>';
-	}
-	
-	echo <<<HTML
-<form action="/account/folders" method="POST">
-	<label>
-		<input type="text" name="name" value="" placeholder="Folder name">
-	</label>
-	<input type="submit" value="Create folder">
-</form>
-HTML;
+	include APP_ROOT . '/app/views/account/index.php';
 
-});
+}, 'account');
 
 $router->map('POST', '/account/folders', function(){
 	if(!isset($_SESSION['account_id'])){
-		redirect('/?error=not-authorized');
+		redirect(router()->generate('root'), ['error' => 'not-authorized']);
 	}
 	$account = Account::find((int)$_SESSION['account_id']);
 	
 	$account->create_folders(['name' => $_POST['name']]);
 
-	redirect('/account');
-});
+	redirect(router()->generate('account'));
+}, 'folders');
 
 $router->map('GET', '/account/folders/[:urlname]', function($params){
 	if(!isset($_SESSION['account_id'])){
-		redirect('/?error=not-authorized');
+		redirect(router()->generate('root'), ['error' => 'not-authorized']);
 	}
 	$account = Account::find((int)$_SESSION['account_id']);
 	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
 
-	echo <<<HTML
-<form action="/account/folders/{$params['urlname']}/password" method="POST">
-	<label>
-		Only enter password if you want to change it<br>
-		<input type="password" name="password">
-	</label>
-	<input type="submit" value="Set password">
-</form>
-<form action="/account/folders/{$params['urlname']}/invite" method="POST">
-	<label>
-		Invite by email<br>
-		<input type="text" name="email">
-	</label>
-	<input type="submit" value="Send invite">
-</form>
-HTML;
+	$invite_url = router()->generate('invite', $params);
+	$password_url = router()->generate('password', $params);
 
-});
+	include APP_ROOT . '/app/views/account/folder.php';
+
+}, 'folder');
 
 $router->map('POST', '/account/folders/[:urlname]/invite', function($params){
 	if(!isset($_SESSION['account_id'])){
-		redirect('/?error=not-authorized');
+		redirect(router()->generate('root'), ['error' => 'not-authorized']);
 	}
 	$account = Account::find((int)$_SESSION['account_id']);
 	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
 
 	$folder->inviteByEmail($_POST['email']);
-	redirect("/account/folders/{$folder->urlname}");
-});
+	redirect(router()->generate('folder', $params));
+}, 'invite');
 
 $router->map('POST', '/account/folders/[:urlname]/password', function($params){
 	if(!isset($_SESSION['account_id'])){
-		redirect('/?error=not-authorized');
+		redirect(router()->generate('root'), ['error' => 'not-authorized']);
 	}
 	$account = Account::find((int)$_SESSION['account_id']);
 	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
 
 	$folder->update_attribute('password', password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 10]));
-	redirect("/account/folders/{$folder->urlname}");
-});
+	redirect(router()->generate('folder', $params));
+}, 'password');
 
 $router->map('GET', '/auth-finish', function(){
 
@@ -248,7 +216,7 @@ $router->map('GET', '/auth-finish', function(){
 		$account->save();
 
 		$_SESSION['account_id'] = $account->id;
-		redirect('/account');
+		redirect(router()->generate('account'));
 	}
 	catch (dbx\WebAuthException_BadRequest $ex) {
 		error_log("/dropbox-auth-finish: bad request: " . $ex->getMessage());
