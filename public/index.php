@@ -223,7 +223,7 @@ $router->map('POST', '/account/folders/[:urlname]/password', function($params){
 	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
 
 	$folder->update_attribute('password', password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 10]));
-	redirect(router()->generate('folder', $params));
+	redirect(router()->generate('folder', $params), ['success' => true]);
 }, 'password');
 
 $router->map('GET', '/auth-finish', function(){

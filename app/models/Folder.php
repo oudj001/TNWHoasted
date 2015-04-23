@@ -56,19 +56,21 @@ class Folder extends ActiveRecord\Model {
 	public function inviteByEmail($to){
 		$mandrill = new Mandrill(MANDRILL_API_KEY);
 
+    if(!is_array($to)){
+      $to = array($to);
+    }
+
+    $to = array_map(function($_to){
+      return array('email' => $_to);
+    }, $to);
+
 		$message = array(
 			'html' => sprintf('<p><a href="%s">Start uploading!</a></p>', $this->public_url),
 			'text' => $this->public_url,
 			'subject' => "You're invited for {$this->name}",
 			'from_email' => INVITE_ORIGINATOR,
 			'from_name' => 'DropToBox',
-			'to' => array(
-				array(
-					'email' => $to,
-					// 'name' => 'Recipient Name',
-					// 'type' => 'to'
-				)
-			)
+			'to' => $to
 		);
 		return $mandrill->messages->send($message);
 	}
