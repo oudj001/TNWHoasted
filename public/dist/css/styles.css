@@ -2,6 +2,10 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+a{
+	cursor: pointer;
+}
+
 .login{
     margin:7em 0 0;
 }
@@ -59,6 +63,7 @@
     margin: 20px 0 0;
     font-size: 18px;
     display: inline-block;
+    cursor: pointer;
 }
 
 .drop-ico{	
@@ -70,6 +75,7 @@
 }
 .loginbutton:hover{
     color:rgb(21, 125, 184);
+    text-decoration: none;
 }
 
 .loginbox{
