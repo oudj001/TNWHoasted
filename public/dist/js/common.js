@@ -1,6 +1,7 @@
 $( document ).ready(function() {
     $('.plus-holder').click(function() {
        var email = $('.email').clone();
+       $('input', email).val('');
        email.find('.plus-email').removeClass('glyphicon-plus');
        email.find('.plus-email').addClass('glyphicon-minus');
        email.removeClass('email');
