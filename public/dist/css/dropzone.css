@@ -219,11 +219,27 @@
     .dropzone .dz-preview .dz-remove {
       font-size: 14px;
       text-align: center;
-      display: block;
+      visibility:hidden;
+  opacity:0;
+  color:red;
+  font-size:20px;
+  right:-5px;
+  position:absolute;
+  z-index:200;
+  top:-5px;
+  transition:opacity 1s linear;
       cursor: pointer;
       border: none; }
+    .dropzone .dz-preview .dz-remove span{
+        cursor:pointer;
+    }
       .dropzone .dz-preview .dz-remove:hover {
-        text-decoration: underline; }
+        color:#a92222;
+      }
+      .dropzone .dz-preview:hover .dz-remove {
+          visibility:visible;
+  opacity:1;
+      }
     .dropzone .dz-preview:hover .dz-details {
       opacity: 1; }
     .dropzone .dz-preview .dz-details {

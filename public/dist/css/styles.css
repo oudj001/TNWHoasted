@@ -1,150 +1,176 @@
 *{
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .login{
-	margin:7em 0 0;
+    margin:7em 0 0;
 }
 
 .clear{
-	clear:both;
+    clear:both;
 }
 
 .middle{
-	text-align: center;
+    text-align: center;
 }
 
 .heading{
-	margin:0 0 30px;
+    margin:0 0 30px;
 }
 
 .form-control{
-	border-radius: 0px;
+    border-radius: 0px;
 }
 
 .btn{
-	border-radius: 0px;
+    border-radius: 0px;
 }
 
 .purplecolor{
-	background-color:rgb(21, 125, 184);
-	color:#FFF;
+    background-color:rgb(21, 125, 184);
+    color:#FFF;
 }
 
 .purplecolor:hover{
-	color:#FFF;
+    color:#FFF;
 }
 
 .background{
-	position: relative;
-	background-repeat: no-repeat;
-	background-position: center center;
-	width: 100%;
-	z-index: 0;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	padding:8em 0 8em;
-	font-weight:300;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    z-index: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    padding:8em 0 8em;
+    font-weight:300;
 }
 
 .logo{
-	margin:0 auto;
+    margin:0 auto;
 }
 
 .loginbutton{
-	border: rgb(21, 125, 184) 3px solid;
-	padding: 3px 35px 11px;
-	color: rgb(21, 125, 184);
-	margin: 20px 0 0;
-	font-size: 18px;
-	display: inline-block;
+    border: rgb(21, 125, 184) 3px solid;
+    padding: 3px 35px 11px;
+    color: rgb(21, 125, 184);
+    margin: 20px 0 0;
+    font-size: 18px;
+    display: inline-block;
 }
 
 .drop-ico{	
-	background: url('../img/dropbox-ico.png') no-repeat;
-	width: 41px;
-	height: 40px;
-	display: inline-block;
-	margin: 0px 4px -11px 0 ;
+    background: url('../img/dropbox-ico.png') no-repeat;
+    width: 41px;
+    height: 40px;
+    display: inline-block;
+    margin: 0px 4px -11px 0 ;
 }
 .loginbutton:hover{
-	color:rgb(21, 125, 184);
+    color:rgb(21, 125, 184);
 }
 
 .loginbox{
-	background-color:rgba(255,255,255,0.6);
-	padding:2em ;
-	text-align: center;
+    background-color:rgba(255,255,255,0.6);
+    padding:2em ;
+    text-align: center;
 }
 
 /* Header */
 .wrappert {
-	padding-top: 90px;
+    padding-top: 20px;
 }
 #logo {
-	padding: 20px 0;
+    padding: 20px 0;
 }
 a.publiclink {
-	margin: 20px 0;
-	height: 45px;
-	padding: 13px 20px;
-	display: inline-block;
-	background: rgb(21, 125, 184);
-	color: white;
-	font-weight: bold;
-	cursor: pointer;
+    margin: 20px 0;
+    height: 45px;
+    padding: 13px 20px;
+    display: inline-block;
+    background: rgb(21, 125, 184);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 a.publiclink:hover {
-	text-decoration: none;
-	background: rgba(21, 125, 184, 0.8);
+    text-decoration: none;
+    background: rgba(21, 125, 184, 0.8);
 }
 
 a#uploadbtn {
-	margin-right: 20px;
+    margin-right: 20px;
 }
 
 /* Center */
 .dropzone {
-	margin: auto;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	padding: 60px 20px;
-	color: rgb(140, 140, 140);
-	border-radius: 30px;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 60px 20px;
+    color: rgb(140, 140, 140);
+    border-radius: 30px;
+    margin-bottom:40px;
 }
 
 .uploadbutton{
-	margin: auto;
-	width: 250px;
-	height: 250px;
-	text-align: center;
-	padding: 60px 20px;
-	color: rgb(140, 140, 140);
-	border-radius: 30px; 
-	border: 2px dashed rgba(0, 0, 0, 0.3);
-	
+    margin: auto;
+    width: 250px;
+    height: 250px;
+    text-align: center;
+    padding: 60px 20px;
+    color: rgb(140, 140, 140);
+    border-radius: 30px; 
+    border: 2px dashed rgba(0, 0, 0, 0.3);
+
 }
+
 .glyphicon-plus-sign {
-	font-size: 5em;
+    font-size: 5em;
 }
 #instructions {
-	padding-top: 20px;
+    padding-top: 20px;
 }
 
 /* Footer */
 footer {
-	background: rgb(248, 248, 248);
-	position: fixed;
-	bottom: 0;
-	height: 50px;
-	width: 100%;
-	border-top: 1px solid #e7e7e7;
+    background: rgb(248, 248, 248);
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    border-top: 1px solid #e7e7e7;
+    z-index:1000;
 }
 #footertxt {
-	padding: 15px 0;
-	text-align: center;
-	font-style: italic;
+    padding: 15px 0;
+    text-align: center;
+    font-style: italic;
 }
+
+.dz-preview {
+    width:100px !important;
+}
+
+.dz-preview:hover .dz-details{
+    display:none !important;
+}
+
+.dropzone .dz-preview:hover .dz-image img {
+    filter: none !important;
+    transform:none !important;
+}
+
+.confirmation { font-weight:200; text-align:center;}
+.upload-dropzone {background: rgb(21, 125, 184);
+                  color: white;
+                  padding:8px 15px; font-size:25px; border:none; display:block; width:150px; margin: 0 auto;}
+.upload-dropzone:hover {
+    text-decoration: none;
+    background: rgba(21, 125, 184, 0.8);
+}
+.confirmation-box {display:none;}
