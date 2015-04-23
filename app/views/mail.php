@@ -13,7 +13,7 @@
 				<table cellpadding="12" width="650">
 					<tr>
 						<td style="font-family:Arial, sans-serif; font-size:16px; color:#333333;">
-							<h1 style="font-size:18px;"><?= $sender_name ?> <?= isset($sender_email) ? "($sender_email)" : ""; ?> send you an invitation to share files</h1>
+							<h1 style="font-size:18px;"><?= $sender_name ?> <?= isset($sender_email) ? "($sender_email)" : ""; ?> sent you an invitation to share files</h1>
 						</td>
 					</tr>
 				</table>
