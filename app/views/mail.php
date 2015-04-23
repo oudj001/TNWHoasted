@@ -6,7 +6,7 @@
 				<table width="650" cellpadding="12" bgcolor="#f8f8f8" style"border-color: #e7e7e7;">
 					<tr>
 						<td>
-							<img id="logo" src="https://www.hoasted.com/blog/img/logo-hoasted-2015-159x45.png"> 
+							<img id="logo" src="https://droptobox.herokuapp.com/dist/img/logo@2x.png" width="300" height="68">
 						</td>
 					</tr>
 				</table>

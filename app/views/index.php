@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="/dist/js/startup-kit.js"></script>
-        <script src="/dist/js/page-transitions.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+        <script src="//code.jquery.com/jquery-latest.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link rel="stylesheet" href="/dist/css/styles.css">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         
-        <link rel="stylesheet" href="/public/dist/css/bootstrap-responsive.css">
-        <link rel="stylesheet" href="/public/dist/css/flat-ui.css">
+        <link rel="stylesheet" href="/dist/css/bootstrap-responsive.css">
+        <link rel="stylesheet" href="/dist/css/flat-ui.css">
         <!-- Using only with Flat-UI (free)-->
-        <link rel="stylesheet" href="public/dist/css/icon-font.css">
+        <link rel="stylesheet" href="/dist/css/icon-font.css">
         <!-- end -->
-        <link rel="stylesheet" href="/public/dist/css/animations.css">
-        <link rel="stylesheet" href="/public/dist/css/style.css">
+        <link rel="stylesheet" href="/dist/css/animations.css">
+        <link rel="stylesheet" href="/dist/css/style.css">
 
     </head>
     <body>
@@ -26,7 +26,7 @@
                 <div class="navbar span12">
                     <div class="navbar-inner">
                         <button type="button" class="btn btn-navbar"></button>
-                        <a class="brand" href="#"><img src="/public/dist/img/logo@2x.png" width="450" height="60" alt="" ></a>
+                        <a class="brand" href="#"><img src="/dist/img/logo@2x.png" width="300" height="68" alt="" ></a>
                         <a href="/connect" class="btn btn-primary get-started">GET STARTED</a>
                     </div>
                 </div>
@@ -81,19 +81,19 @@
                 <br>
                 <div class="row features subtitel">
                     <div class="col-lg-4 col-md-4 centered">
-                        <img src="/public/dist/img/1.png" width="100" height="100">
+                        <img src="/dist/img/1.png" width="100" height="100">
                         <p>Log in with your Dropbox</p>
                         <p>
                         </p>
                     </div>
                     <div class="col-lg-4 col-md-4  centered">
-                        <img src="/public/dist/img/2.png" width="100" height="100">
+                        <img src="/dist/img/2.png" width="100" height="100">
                         <p>Share the upload link</p>
                         <p>
                         </p>
                     </div>
                     <div class="col-lg-4 col-md-4  centered">
-                        <img src="/public/dist/img/3.png" width="100" height="100">
+                        <img src="/dist/img/3.png" width="100" height="100">
                         <p>Receive files</p>
                         <p>
                             

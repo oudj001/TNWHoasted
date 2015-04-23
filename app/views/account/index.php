@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="//code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/public/dist/css/styles.css">
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'> 
+  <link rel="stylesheet" href="/dist/css/styles.css">
+  <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'> 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <body class="background">
     <!-- Login here -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="row">
-          <img id="logo" src="/public/dist/img/logo@2x.png" height="100" class="pull-left">
+          <img id="logo" src="/dist/img/logo@2x.png" class="pull-left">
         </div>
       </div>
     </nav>
@@ -31,7 +31,7 @@
                 <h3>Folders</h3>
                 <?php foreach($account->folders as $_folder): ?>
                 <div class="folder-app">
-                    <a href="<?= router()->generate('folder', ['urlname' => $_folder->urlname]); ?>"><img src="/public/dist/img/folder.png"><?=$_folder->name ?></a>
+                    <a href="<?= router()->generate('folder', ['urlname' => $_folder->urlname]); ?>"><img src="/dist/img/folder.png"><?=$_folder->name ?></a>
                 </div>
                 <?php endforeach ?>
                 

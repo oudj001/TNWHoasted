@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="/dist/css/styles.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'> 
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'> 
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <script src="/dist/js/dropzone.js"></script>
         <link href="/dist/css/dropzone.css" type="text/css" rel="stylesheet" />
@@ -17,7 +17,7 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container">
                     <div class="row">
-                        <img id="logo" src="https://www.hoasted.com/blog/img/logo-hoasted-2015-159x45.png" class="pull-left">
+                        <img id="logo" src="/dist/img/logo@2x.png" width="300" class="pull-left">
                     </div>
                 </div>
             </nav>
