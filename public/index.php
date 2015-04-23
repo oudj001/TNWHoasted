@@ -11,6 +11,14 @@ if(!getenv('APPLICATION_ENV') || getenv('APPLICATION_ENV') == 'development'){
 	Dotenv::load(APP_ROOT);
 }
 
+function diverse_array($vector) {
+	$result = array();
+	foreach($vector as $key1 => $value1)
+		foreach($value1 as $key2 => $value2)
+			$result[$key2][$key1] = $value2;
+	return $result;
+}
+
 use \Dropbox as dbx;
 use Symfony\Component\Yaml\Yaml;
 
@@ -81,12 +89,35 @@ $router->map('GET', '/u/[i:dropbox_uid]/[:urlname]', function($params){
 		include APP_ROOT . '/app/views/user/login.php';
 
 	}else{
+		$dropbox_url = router()->generate('dropbox_url', $params);
 		$upload_url = router()->generate('upload', $params);
 		include APP_ROOT . '/app/views/user/index.php';
 
 	}
 
 }, 'user');
+
+$router->map('GET', '/u/[i:dropbox_uid]/[:urlname]/dropbox', function($params){
+
+	$folder = Folder::find('first', [
+		'conditions' => [
+			'urlname = ? AND dropbox_uid = ?',
+			$params['urlname'], $params['dropbox_uid']
+		],
+		'joins' => 'JOIN accounts ON folders.account_id = accounts.id'
+	]);
+
+	if(!$folder){
+		redirect(router()->generate('root'), ['error' => 'not_found']);
+	}
+
+	$authorized_folders = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
+
+	if(!$folder->password || $folder->password == $authorized_folders[$folder->id]){
+		redirect($folder->getShareableLink());
+	}
+
+}, 'dropbox_url');
 
 # User upload
 $router->map('POST', '/u/[i:dropbox_uid]/[:urlname]', function($params){
@@ -99,10 +130,13 @@ $router->map('POST', '/u/[i:dropbox_uid]/[:urlname]', function($params){
 		'joins' => 'JOIN accounts ON folders.account_id = accounts.id'
 	]);
 
+	$files = diverse_array($_FILES['file']);
 	$authorized_folders = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
 
 	if(!$folder->password || $folder->password == $authorized_folders[$folder->id]){
-		$file = $folder->uploadFile($_FILES['file']['tmp_name'], $_FILES['file']['name']);
+		foreach($files as $_file){
+			$folder->uploadFile($_file['tmp_name'], $_file['name']);
+		}
 		redirect(router()->generate('user', $params), ['success' => 'true']);
 	}
 }, 'upload');
