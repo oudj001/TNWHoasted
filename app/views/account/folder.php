@@ -10,9 +10,11 @@
         <script src="/dist/js/dropzone.js"></script>
         <link href="/dist/css/dropzone.css" type="text/css" rel="stylesheet" />
         <title>DroptoBox - receive files in your own Dropbox</title>
+        
         </head>
 
     <body class="background">
+        <?php include __DIR__ . '/../ga.php'; ?>
         <!-- Login here -->
         <div class="wrapper">
             <nav class="navbar navbar-default navbar-fixed-top">

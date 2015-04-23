@@ -20,6 +20,7 @@
                 <title>DroptoBox - receive files in your own Dropbox</title>
     </head>
     <body>
+        <?php include __DIR__ . '/ga.php'; ?>
         <!-- header-17 -->
         <header class="header-17">
             <div class="container">

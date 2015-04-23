@@ -10,6 +10,7 @@
           <title>DroptoBox - receive files in your own Dropbox</title>
   </head>
   <body class="background">
+    <?php include __DIR__ . '/../ga.php'; ?>
     <!-- Login here -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
