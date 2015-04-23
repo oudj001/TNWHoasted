@@ -7,7 +7,7 @@ StandaloneMigrations::Configurator.environments_config do |env|
     if (ENV['DATABASE_URL'])
       db = URI.parse(ENV['DATABASE_URL'])
       return {
-        adapter:  db.scheme == 'postgres' ? 'postgresql' : db.scheme,
+        adapter:  db.scheme == 'pgsql' ? 'postgresql' : db.scheme,
         host:     db.host,
         username: db.user,
         password: db.password,
