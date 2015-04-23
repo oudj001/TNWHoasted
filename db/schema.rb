@@ -18,16 +18,17 @@ ActiveRecord::Schema.define(version: 20150422233137) do
     t.string   "email",        limit: 255
     t.string   "access_token", limit: 255
     t.string   "dropbox_uid",  limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "folders", force: :cascade do |t|
     t.integer  "account_id", limit: 4
     t.string   "name",       limit: 255
     t.string   "urlname",    limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "password",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "folders", ["account_id"], name: "index_folders_on_account_id", using: :btree
