@@ -25,9 +25,9 @@
             <div class="container">
                 <div class="navbar span12">
                     <div class="navbar-inner">
-                        <button type="button" class="btn btn-navbar"></button>
+                        <!-- <button type="button" class="btn btn-navbar"></button> -->
                         <a class="brand" href="#"><img src="/dist/img/logo@2x.png" width="300" height="68" alt="" ></a>
-                        <a href="/connect" class="btn btn-primary get-started">GET STARTED</a>
+                        <a href="/connect" class="btn btn-primary get-started pull-right">GET STARTED</a>
                     </div>
                 </div>
             </div>

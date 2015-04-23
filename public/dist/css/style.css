@@ -677,7 +677,7 @@ section * {
   padding-bottom: 0;
 }
 .header-17 .navbar {
-  position: absolute;
+/*  position: absolute;*/
   z-index: 2;
   top: 0;
   margin: 0;
