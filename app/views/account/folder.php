@@ -18,12 +18,15 @@
                 <div class="container">
                     <div class="row">
                         <img id="logo" src="/dist/img/logo@2x.png" width="300" class="pull-left">
+                        <a href="<?= $dropbox_url ?>" target="_blank" class="publiclink pull-right">View on Dropbox</a>
                     </div>
                 </div>
             </nav>
 
             <div class="clear"></div>
             <div class="wrappert">
+
+              
                 <h1>Who do you want to invite?</h1>
 								
 								
@@ -49,7 +52,7 @@
                             <span>Optionally</span>
                             <input type="password" name="password" placeholder="Add a password"/>
                         </div>
-                        <button type="submit" class="btn btn-success btn-save-invite">Set password</button>
+                        <button type="submit" class="btn btn-success">Set password</button>
                     </form>
 
 

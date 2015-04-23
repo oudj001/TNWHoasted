@@ -201,10 +201,19 @@ $router->map('GET', '/account/folders/[:urlname]', function($params){
 
 	$invite_url = router()->generate('invite', $params);
 	$password_url = router()->generate('password', $params);
+	$dropbox_url = router()->generate('account_dropbox_url', $params);
 
 	include APP_ROOT . '/app/views/account/folder.php';
 
 }, 'folder');
+
+$router->map('GET', '/account/folders/[:urlname]/dropbox', function($params){
+  $account = account();
+  $folder = $account->getFolder($params['urlname']);
+
+  redirect($folder->getShareableLink());
+
+}, 'account_dropbox_url');
 
 $router->map('POST', '/account/folders/[:urlname]/invite', function($params){
   $account = account();

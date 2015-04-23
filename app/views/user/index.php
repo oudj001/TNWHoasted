@@ -19,7 +19,7 @@
                 <div class="row">
                     <img id="logo" src="/dist/img/logo@2x.png" width="300" class="pull-left">
                     <a href="<?= $dropbox_url ?>" class="publiclink pull-right">Public download Link</a>
-                    <a id="uploadbtn" href="" class="publiclink pull-right">Public upload Link</a>
+                    <!-- <a id="uploadbtn" href="" class="publiclink pull-right">Public upload Link</a> -->
                 </div>
             </div>
         </nav>
