@@ -28,7 +28,14 @@
 					<tr>
 						<td>&nbsp;</td>
 					</td>
-				</tabl>
+				</table>
+        <?php if($password): ?>
+  				<table cellpadding="12" width="650">
+  					<tr>
+  						<td>Password to access this folder is: <code><?=$password ?></code></td>
+  					</td>
+  				</table>
+        <?php endif; ?>
 				<table cellpadding="12" width="650"	>
 					<tr>
 						<td style="font-family:Arial, sans-serif; font-size:18px; color:#FFF;" bgcolor="#157DB8" align="center">

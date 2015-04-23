@@ -227,7 +227,10 @@ $router->map('POST', '/account/folders/[:urlname]/password', function($params){
   $account = account();
 	$folder = $account->getFolder($params['urlname']);
 
-	$folder->update_attribute('password', password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 10]));
+	$folder->update_attributes([
+    'plain_password' => $_POST['password'],
+    'password' => password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 10])
+  ]);
 	redirect(router()->generate('folder', $params), ['success' => true]);
 }, 'password');
 

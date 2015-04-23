@@ -80,6 +80,7 @@ class Folder extends ActiveRecord\Model {
     $sender_email = $this->account->email;
     $upload_url = $this->public_url;
     $dropbox_url = $this->getShareableLink();
+    $password = $this->plain_password;
     ob_start();
     include APP_ROOT . '/app/views/mail.php';
     $html = ob_get_contents();

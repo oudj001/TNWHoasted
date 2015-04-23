@@ -18,7 +18,7 @@
             <div class="container">
                 <div class="row">
                     <img id="logo" src="/dist/img/logo@2x.png" width="300" class="pull-left">
-                    <a href="<?= $dropbox_url ?>" class="publiclink pull-right">Public download Link</a>
+                    <a href="<?= $dropbox_url ?>" target="_blank" class="publiclink pull-right">View on Dropbox</a>
                     <!-- <a id="uploadbtn" href="" class="publiclink pull-right">Public upload Link</a> -->
                 </div>
             </div>
@@ -39,9 +39,9 @@
                             <form action="<?= $upload_url ?>" class="dropzone" id="myDropzone"></form>
                             <div class="confirmation-box">
                                 <h1 class="confirmation">Are you sure you selected every file?</h1>
+                                <div class="btn btn-success upload-dropzone pull-right">Upload </div>
                                 <div class="upload-box">
-                                <input class="form-control" name="name" type="text" placeholder="Optional: Add a name"/>
-                                <div class="btn btn-success upload-dropzone">Upload </div>
+                                <!-- <input class="form-control" name="name" type="text" placeholder="Optional: Add a name"/> -->
                                 </div>
                             </div>
 
