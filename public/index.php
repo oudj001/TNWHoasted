@@ -65,7 +65,7 @@ $router->map('GET', '/u/[i:dropbox_uid]/[:urlname]', function($params){
 
 	$authorized_folders = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
 
-	if($folder->password && !in_array($folder->id, $authorized_folders)){
+	if($folder->password && (!isset($authorized_folders[$folder->id]) || $folder->password != $authorized_folders[$folder->id])){
 		echo <<<HTML
 <form action="/u/{$params['dropbox_uid']}/{$params['urlname']}/login" method="POST">
 	<label>
@@ -105,7 +105,7 @@ $router->map('POST', '/u/[i:dropbox_uid]/[:urlname]', function($params){
 
 	$authorized_folders = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
 
-	if(!$folder->password || in_array($folder->id, $authorized_folders)){
+	if(!$folder->password || $folder->password == $authorized_folders[$folder->id]){
 		$file = $folder->uploadFile($_FILES['file']['tmp_name'], $_FILES['file']['name']);
 		var_dump($file);
 	}else{
@@ -126,7 +126,7 @@ $router->map('POST', '/u/[i:dropbox_uid]/[:urlname]/login', function($params){
 
 	if(password_verify($_POST['password'], $folder->password)){
 		$_SESSION['authorized_folders'] = isset($_SESSION['authorized_folders']) ? $_SESSION['authorized_folders'] : [];
-		$_SESSION['authorized_folders'][] = $folder->id;
+		$_SESSION['authorized_folders'][$folder->id] = $folder->password;
 	}
 	redirect("/u/{$params['dropbox_uid']}/{$params['urlname']}");
 });
