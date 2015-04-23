@@ -271,26 +271,26 @@ $router->map('GET', '/auth-finish', function(){
 		redirect(BASE_URL . router()->generate('account'));
 	}
 	catch (dbx\WebAuthException_BadRequest $ex) {
-		error_log("/dropbox-auth-finish: bad request: " . $ex->getMessage());
+    redirect(router()->generate('root'), ['error' => $ex->getMessage()]);
 		// Respond with an HTTP 400 and display error page...
 	}
 	catch (dbx\WebAuthException_BadState $ex) {
 		// Auth session expired.  Restart the auth process.
-		var_dump($ex->getMessage());
+		redirect(router()->generate('root'), ['error' => $ex->getMessage()]);
 		// header('Location: /connect');
 	}
 	catch (dbx\WebAuthException_Csrf $ex) {
-		error_log("/dropbox-auth-finish: CSRF mismatch: " . $ex->getMessage());
+		redirect(router()->generate('root'), ['error' => $ex->getMessage()]);
 		// Respond with HTTP 403 and display error page...
 	}
 	catch (dbx\WebAuthException_NotApproved $ex) {
-		error_log("/dropbox-auth-finish: not approved: " . $ex->getMessage());
+		redirect(router()->generate('root'), ['error' => $ex->getMessage()]);
 	}
 	catch (dbx\WebAuthException_Provider $ex) {
-		error_log("/dropbox-auth-finish: error redirect from Dropbox: " . $ex->getMessage());
+		redirect(router()->generate('root'), ['error' => $ex->getMessage()]);
 	}
 	catch (dbx\Exception $ex) {
-		error_log("/dropbox-auth-finish: error communicating with Dropbox API: " . $ex->getMessage());
+		redirect(router()->generate('root'), ['error' => $ex->getMessage()]);
 	}
 });
 
