@@ -32,8 +32,12 @@ ActiveRecord\Config::initialize(function($cfg){
 	$cfg->set_default_connection(getenv('APPLICATION_ENV') ?: 'development');
 });
 
+define('BASE_URL', getenv('BASE_URL') ?: 'https://' . $_SERVER['HTTP_HOST']);
+
+define('DROPBOX_REDIRECT_URL', getenv('DROPBOX_REDIRECT_URL') ?: BASE_URL . '/auth-finish');
+
 define('CLIENT_IDENTIFIER', 'TNWDropboxUploader/1.0');
-define('INVITE_ORIGINATOR', 'invite@' . $_SERVER['HTTP_HOST']);
+define('INVITE_ORIGINATOR', getenv('INVITE_ORIGINATOR') ?: 'invite@' . $_SERVER['HTTP_HOST']);
 
 define('MANDRILL_API_KEY', getenv('MANDRILL_API_KEY'));
 define('DROPBOX_KEY', getenv('DROPBOX_KEY'));
@@ -43,7 +47,7 @@ function getWebAuth(){
 
 	$appInfo = new dbx\AppInfo(DROPBOX_KEY, DROPBOX_SECRET);
 	$csrfTokenStore = new dbx\ArrayEntryStore($_SESSION, 'dropbox-auth-csrf-token');
-	$redirectUrl = 'https://' . $_SERVER['HTTP_HOST'] . '/auth-finish';
+	$redirectUrl = DROPBOX_REDIRECT_URL;
 
 	return new dbx\WebAuth($appInfo, CLIENT_IDENTIFIER, $redirectUrl, $csrfTokenStore);
 }
@@ -250,7 +254,7 @@ $router->map('GET', '/auth-finish', function(){
 		$account->save();
 
 		$_SESSION['account_id'] = $account->id;
-		redirect(router()->generate('account'));
+		redirect(BASE_URL . router()->generate('account'));
 	}
 	catch (dbx\WebAuthException_BadRequest $ex) {
 		error_log("/dropbox-auth-finish: bad request: " . $ex->getMessage());
