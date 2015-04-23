@@ -65,7 +65,7 @@ class Folder extends ActiveRecord\Model {
     }, $to);
 
 		$message = array(
-			'html' => sprintf('<p><a href="%s">Start uploading!</a></p>', $this->public_url),
+			'html' => $this->_getMailHtml(),
 			'text' => $this->public_url,
 			'subject' => "You're invited for {$this->name}",
 			'from_email' => INVITE_ORIGINATOR,
@@ -74,5 +74,17 @@ class Folder extends ActiveRecord\Model {
 		);
 		return $mandrill->messages->send($message);
 	}
+
+  protected function _getMailHtml(){
+    $sender_name = $this->account->name;
+    $sender_email = $this->account->email;
+    $upload_url = $this->public_url;
+    $dropbox_url = $this->getShareableLink();
+    ob_start();
+    include APP_ROOT . '/app/views/mail.php';
+    $html = ob_get_contents();
+    ob_end_clean();
+    return $html;
+  }
 
 }

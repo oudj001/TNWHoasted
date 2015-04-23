@@ -10,4 +10,8 @@ class Account extends ActiveRecord\Model {
 		['folders']
 	];
 
+  public function getFolder($urlname){
+    return Folder::find('first', ['account_id' => $this->id, 'urlname' => $urlname]);
+  }
+
 }

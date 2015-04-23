@@ -60,6 +60,13 @@ function redirect($location, $query = null){
 	exit;
 }
 
+function account(){
+	if(!isset($_SESSION['account_id'])){
+		redirect(router()->generate('root'), ['error' => 'not-authorized']);
+	}
+	return Account::find((int)$_SESSION['account_id']);
+}
+
 $router = new AltoRouter();
 function router(){
 	global $router;
@@ -173,10 +180,7 @@ $router->map('GET', '/connect', function(){
 });
 
 $router->map('GET', '/account', function(){
-	if(!isset($_SESSION['account_id'])){
-		redirect(router()->generate('root'), ['error' => 'not-authorized']);
-	}
-	$account = Account::find((int)$_SESSION['account_id']);
+  $account = account();
 	$folders_url = router()->generate('folders');
 
 	include APP_ROOT . '/app/views/account/index.php';
@@ -184,10 +188,7 @@ $router->map('GET', '/account', function(){
 }, 'account');
 
 $router->map('POST', '/account/folders', function(){
-	if(!isset($_SESSION['account_id'])){
-		redirect(router()->generate('root'), ['error' => 'not-authorized']);
-	}
-	$account = Account::find((int)$_SESSION['account_id']);
+  $account = account();
 	
 	$account->create_folders(['name' => $_POST['name']]);
 
@@ -195,11 +196,8 @@ $router->map('POST', '/account/folders', function(){
 }, 'folders');
 
 $router->map('GET', '/account/folders/[:urlname]', function($params){
-	if(!isset($_SESSION['account_id'])){
-		redirect(router()->generate('root'), ['error' => 'not-authorized']);
-	}
-	$account = Account::find((int)$_SESSION['account_id']);
-	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
+  $account = account();
+  $folder = $account->getFolder($params['urlname']);
 
 	$invite_url = router()->generate('invite', $params);
 	$password_url = router()->generate('password', $params);
@@ -209,22 +207,16 @@ $router->map('GET', '/account/folders/[:urlname]', function($params){
 }, 'folder');
 
 $router->map('POST', '/account/folders/[:urlname]/invite', function($params){
-	if(!isset($_SESSION['account_id'])){
-		redirect(router()->generate('root'), ['error' => 'not-authorized']);
-	}
-	$account = Account::find((int)$_SESSION['account_id']);
-	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
+  $account = account();
+  $folder = $account->getFolder($params['urlname']);
 
 	$folder->inviteByEmail($_POST['email']);
 	redirect(router()->generate('folder', $params));
 }, 'invite');
 
 $router->map('POST', '/account/folders/[:urlname]/password', function($params){
-	if(!isset($_SESSION['account_id'])){
-		redirect(router()->generate('root'), ['error' => 'not-authorized']);
-	}
-	$account = Account::find((int)$_SESSION['account_id']);
-	$folder = Folder::find('first', ['account_id' => $account->id, 'urlname' => $params['urlname']]);
+  $account = account();
+	$folder = $account->getFolder($params['urlname']);
 
 	$folder->update_attribute('password', password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 10]));
 	redirect(router()->generate('folder', $params), ['success' => true]);

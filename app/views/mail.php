@@ -13,7 +13,7 @@
 				<table cellpadding="12" width="650">
 					<tr>
 						<td style="font-family:Arial, sans-serif; font-size:16px; color:#333333;">
-							<h1 style="font-size:18px;">PersonX send you an invitation to share files</h1>
+							<h1 style="font-size:18px;"><?= $sender_name ?> <?= isset($sender_email) ? "($sender_email)" : ""; ?> send you an invitation to share files</h1>
 						</td>
 					</tr>
 				</table>
@@ -32,11 +32,11 @@
 				<table cellpadding="12" width="650"	>
 					<tr>
 						<td style="font-family:Arial, sans-serif; font-size:18px; color:#FFF;" bgcolor="#157DB8" align="center">
-							<a href="" style="color:#fff;text-decoration:none;">Upload your files</a>
+							<a href="<?= $upload_url ?>" style="color:#fff;text-decoration:none;">Upload your files</a>
 						</td>
 						<td>&nbsp;</td>
 						<td style="font-family:Arial, sans-serif; font-size:18px; color:#FFF;" bgcolor="#157DB8" align="center">
-							<a href="" style="color:#fff;text-decoration:none;">View other files</a>
+							<a href="<?= $dropbox_url ?>" style="color:#fff;text-decoration:none;">View other files</a>
 						</td>
 					</tr>
 				</table>
