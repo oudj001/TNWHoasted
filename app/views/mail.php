@@ -1,9 +1,9 @@
 <html>
 <body>
-	<table cellspacing="0" celpadding="0" with="100%"  align="center">
+	<table cellspacing="0" cellpadding="0" width="100%"  align="center">
 		<tr>
 			<td>
-				<table width="650" cellpadding="12" bgcolor="#f8f8f8" style"border-color: #e7e7e7;">
+				<table width="650" cellpadding="12" bgcolor="#f8f8f8" style="border-color: #e7e7e7;">
 					<tr>
 						<td>
 							<img id="logo" src="https://droptobox.herokuapp.com/dist/img/logo@2x.png" width="300" height="68">
@@ -27,13 +27,13 @@
 				<table cellpadding="12" width="650">
 					<tr>
 						<td>&nbsp;</td>
-					</td>
+					</tr>
 				</table>
         <?php if($password): ?>
   				<table cellpadding="12" width="650">
   					<tr>
-  						<td>Password to access this folder is: <code><?=$password ?></code></td>
-  					</td>
+  						<td style="font-family:Arial, sans-serif; font-size:18px;">Password to access this folder is: <code><?=$password ?></code></td>
+  					</tr>
   				</table>
         <?php endif; ?>
 				<table cellpadding="12" width="650"	>
@@ -50,9 +50,9 @@
 				<table cellpadding="12" width="650">
 					<tr>
 						<td>&nbsp;</td>
-					</td>
-				</tabl>
-				<table width="650" cellpadding="12" bgcolor="#f8f8f8" style"border-color: #e7e7e7;">
+					</tr>
+				</table>
+				<table width="650" cellpadding="12" bgcolor="#f8f8f8" style="border-color: #e7e7e7;">
 					<tr>
 						<td style="font-family: Arial, Helvetica, sans-serif; font-size:10px; color:#333333;">
 							<i>Want to create your own public drag and drop Dropbox page? <a href="http://www.droptobox.com">Click here</a></i>

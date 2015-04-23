@@ -220,7 +220,7 @@ $router->map('POST', '/account/folders/[:urlname]/invite', function($params){
   $folder = $account->getFolder($params['urlname']);
 
 	$folder->inviteByEmail($_POST['email']);
-	redirect(router()->generate('folder', $params));
+	redirect(router()->generate('folder', $params), ['invitations_sent' => 1]);
 }, 'invite');
 
 $router->map('POST', '/account/folders/[:urlname]/password', function($params){

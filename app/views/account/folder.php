@@ -33,7 +33,14 @@
 								
 								
                 <div class="invite-fields">
+
+                  
 									<form action="<?= $invite_url ?>" class="form-horizontal" method="POST" id="invite-friends">
+                    <?php if(isset($_GET['invitations_sent']) && $_GET['invitations_sent']): ?>
+                    <div class="alert alert-info">
+                      invitations sent!
+                    </div>
+                    <?php endif; ?>
                         <div class="email-box">
                             <div class="email">
                                 <input type="text" name="email[]" placeholder="Add an emailadress"/>
