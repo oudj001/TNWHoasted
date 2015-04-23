@@ -7,6 +7,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'> 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+          <title>DroptoBox - receive files in your own Dropbox</title>
+  </head>
+  
   <body class="background">
     <!-- Login here -->
     <nav class="navbar navbar-default navbar-fixed-top">

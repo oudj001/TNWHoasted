@@ -9,8 +9,8 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <script src="/dist/js/dropzone.js"></script>
         <link href="/dist/css/dropzone.css" type="text/css" rel="stylesheet" />
-    
-        
+        <title>DroptoBox - receive files in your own Dropbox</title>
+        </head>
     <body class="background">
         <!-- Login here -->
         <div class="wrapper">

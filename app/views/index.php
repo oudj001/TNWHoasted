@@ -17,7 +17,7 @@
         <!-- end -->
         <link rel="stylesheet" href="/dist/css/animations.css">
         <link rel="stylesheet" href="/dist/css/style.css">
-
+                <title>DroptoBox - receive files in your own Dropbox</title>
     </head>
     <body>
         <!-- header-17 -->
