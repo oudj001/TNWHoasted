@@ -33,7 +33,7 @@ class Folder extends ActiveRecord\Model {
 	}
 
 	public function before_create(){
-		return $this->_createDbxFolder() !== null;
+		$this->_ensureDbxFolder();
 	}
 
 	public function get_public_url(){
