@@ -73,6 +73,18 @@ function router(){
 	return $router;
 }
 
+
+//HACK
+$router->map('GET', '/forward-session', function(){
+
+  if(isset($_GET['PHPSESSID'])){
+    session_id($_GET['PHPSESSID']);
+  }
+
+  redirect(router()->generate('account'));
+
+}, 'forward_session');
+
 $router->map('GET', '/', function($params){
 	include APP_ROOT . '/app/views/index.php';
 }, 'root');
@@ -244,6 +256,9 @@ $router->map('POST', '/account/folders/[:urlname]/password', function($params){
 	redirect(router()->generate('folder', $params), ['success' => true]);
 }, 'password');
 
+
+
+
 $router->map('GET', '/auth-finish', function(){
 
 	try {
@@ -268,7 +283,7 @@ $router->map('GET', '/auth-finish', function(){
 		$account->save();
 
 		$_SESSION['account_id'] = $account->id;
-		redirect(BASE_URL . router()->generate('account'));
+		redirect(BASE_URL . router()->generate('forward_session'), ['PHPSESSID' => session_id()] );
 	}
 	catch (dbx\WebAuthException_BadRequest $ex) {
     redirect(router()->generate('root'), ['error' => $ex->getMessage()]);
