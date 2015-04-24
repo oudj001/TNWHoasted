@@ -1,10 +1,6 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
-
-if(isset($_GET['PHPSESSID'])){
-  session_id($_GET['PHPSESSID']);
-}
 session_start();
 
 
@@ -36,7 +32,8 @@ ActiveRecord\Config::initialize(function($cfg){
 	$cfg->set_default_connection(getenv('APPLICATION_ENV') ?: 'development');
 });
 
-define('BASE_URL', getenv('BASE_URL') ?: 'https://' . $_SERVER['HTTP_HOST']);
+define('APP_HOST', getenv('APP_HOST') ?: $_SERVER['HTTP_HOST']);
+define('BASE_URL', getenv('BASE_URL') ?: 'https://' . APP_HOST);
 
 define('DROPBOX_REDIRECT_URL', getenv('DROPBOX_REDIRECT_URL') ?: BASE_URL . '/auth-finish');
 
@@ -71,19 +68,15 @@ function account(){
 	return Account::find((int)$_SESSION['account_id']);
 }
 
+if($_SERVER['HTTP_HOST'] != APP_HOST){
+  redirect(BASE_URL);
+}
+
 $router = new AltoRouter();
 function router(){
 	global $router;
 	return $router;
 }
-
-
-//HACK
-$router->map('GET', '/forward-session', function(){
-
-  redirect(router()->generate('account'));
-
-}, 'forward_session');
 
 $router->map('GET', '/', function($params){
 	include APP_ROOT . '/app/views/index.php';
