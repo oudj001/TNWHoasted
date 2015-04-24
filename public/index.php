@@ -69,7 +69,7 @@ function account(){
 }
 
 if($_SERVER['HTTP_HOST'] != APP_HOST){
-  redirect(BASE_URL);
+  redirect(BASE_URL . $_SERVER['REQUEST_URI']);
 }
 
 $router = new AltoRouter();
