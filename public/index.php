@@ -276,7 +276,7 @@ $router->map('GET', '/auth-finish', function(){
 		$account->save();
 
 		$_SESSION['account_id'] = $account->id;
-		redirect(BASE_URL . router()->generate('forward_session'), ['PHPSESSID' => session_id()] );
+		redirect(router()->generate('account'));
 	}
 	catch (dbx\WebAuthException_BadRequest $ex) {
     redirect(router()->generate('root'), ['error' => $ex->getMessage()]);
