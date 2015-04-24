@@ -1,6 +1,10 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
+
+if(isset($_GET['PHPSESSID'])){
+  session_id($_GET['PHPSESSID']);
+}
 session_start();
 
 
@@ -76,10 +80,6 @@ function router(){
 
 //HACK
 $router->map('GET', '/forward-session', function(){
-
-  if(isset($_GET['PHPSESSID'])){
-    session_id($_GET['PHPSESSID']);
-  }
 
   redirect(router()->generate('account'));
 
